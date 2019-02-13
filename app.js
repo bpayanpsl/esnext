@@ -46,7 +46,16 @@ class Trip {
         this.imageUrl = imageUrl;
     }
     toString() {
-        return 'Trip ['+ this.id + ', ' + this.name + ', ' + this.imageUrl +']';
+        return 'Trip ['+ this.id + ', ' + this.name + ', ' + this.imageUrl +', ' +this._price+ ']';
+    }
+    get price(){
+        return this._price;
+    }
+    set price(newPrice){
+        this._price = newPrice;
+    }
+    static getDefaultTrip(){
+        return new Trip('rio_de_janeiro', 'Rio de Janeiro', 'img/rio-de-janeiro.jpg');
     }
 }
 
@@ -55,5 +64,15 @@ let parisTrip = new Trip('paris', 'Paris', 'img/paris.jpg');
 console.log(parisTrip);
 console.log(parisTrip.name);
 console.log(parisTrip.toString());
+
+parisTrip.price = 100;
+
+console.log(parisTrip.toString());
+
+const defaultTrip = Trip.getDefaultTrip();
+
+console.log(defaultTrip);
+//*****************************/
+// 7 - HERITAGE
 
 
