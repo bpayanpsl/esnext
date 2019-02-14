@@ -125,14 +125,14 @@ class TripService {
 
 let ts = new TripService();
 console.log(TripService.trips);
-const trip$ = ts.findByName('Pais');
+const trip$ = ts.findByName('rio-de-janeiro');
 
 trip$.then(trip => {
     console.log(trip);
 })
-.catch(err => {
-    console.log(trip$);
-})
+    .catch(err => {
+        console.log(trip$);
+    })
 
 class PriceService {
 
@@ -140,7 +140,7 @@ class PriceService {
         this.prices = new Map();
 
         this.prices.set('paris', 100);
-        this.prices.set('rio-de-janeiro', 800); 
+        this.prices.set('rio-de-janeiro', 800);
     }
 
     findPriceByTripId(tripId) {
@@ -148,15 +148,27 @@ class PriceService {
         return new Promise((resolve, reject) => {
 
             setTimeout(() => {
-                // ici l'exécution du code est asynchrone
 
-                // TODO utiliser resolve et reject en fonction du résultat de la recherche
-
-                //this.prices.forEach
-
-
-
+                if (this.prices.has(tripId)) {
+                    for (let [cle, valeur] of this.prices.entries()) {
+                        if (cle === tripId) {
+                            resolve(valeur);
+                        }
+                    }
+                }else{
+                    reject('Introuvable');
+                }
             }, 2000)
         });
     }
 }
+
+let ps = new PriceService();
+const test$ = ps.findPriceByTripId('ris');
+test$.then(test => {
+    console.log(test);
+})
+    .catch(err => {
+        console.log(test$);
+    })
+    //*****************************/
