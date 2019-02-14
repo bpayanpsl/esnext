@@ -111,7 +111,7 @@ class TripService {
                         resolve(element);
                     }
                     else {
-                        reject('Trip introuvable');
+                        reject(`Trip ${tripName} introuvable`);
                     }
 
                 });
@@ -156,7 +156,7 @@ class PriceService {
                         }
                     }
                 }else{
-                    reject('Introuvable');
+                    reject(`Id ${tripId} Introuvable`);
                 }
             }, 2000)
         });
