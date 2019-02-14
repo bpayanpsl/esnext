@@ -13,7 +13,7 @@ citiesId.push("tokyo");
 console.log(citiesId);
 //*****************************/
 //3 - CREATION OBJET
-function getWeather(cityId){
+function getWeather(cityId) {
     let city = cityId.toUpperCase();
     let temperature = 20;
     return obj = { city, temperature };
@@ -32,7 +32,7 @@ console.log(city);
 console.log(temperature);
 //*****************************/
 // 5 - REST OPERATOR
-const [parisId, nycId, ...otherCitiesId]=citiesId;
+const [parisId, nycId, ...otherCitiesId] = citiesId;
 
 console.log(parisId);
 console.log(nycId);
@@ -46,15 +46,15 @@ class Trip {
         this.imageUrl = imageUrl;
     }
     toString() {
-        return 'Trip ['+ this.id + ', ' + this.name + ', ' + this.imageUrl +', ' +this._price+ ']';
+        return 'Trip [' + this.id + ', ' + this.name + ', ' + this.imageUrl + ', ' + this._price + ']';
     }
-    get price(){
+    get price() {
         return this._price;
     }
-    set price(newPrice){
+    set price(newPrice) {
         this._price = newPrice;
     }
-    static getDefaultTrip(){
+    static getDefaultTrip() {
         return new Trip('rio_de_janeiro', 'Rio de Janeiro', 'img/rio-de-janeiro.jpg');
     }
 }
@@ -79,12 +79,84 @@ class FreeTrip extends Trip {
         super(id, name, imageUrl)
         this.price = 0;
     }
-    toString(){
+    toString() {
         return 'Free' + super.toString();
-    }   
+    }
 }
 
 const freetrip = new FreeTrip('nantes', 'Nantes', 'img/nantes.jpg');
 
 console.log(freetrip.toString());
 
+//*****************************/
+// 8 - PROMESSES
+class TripService {
+
+    constructor() {
+
+        this.trips = new Set();
+        this.trips.add(new Trip('paris', 'Paris', 'img/paris.jpg'));
+        this.trips.add(new Trip('nantes', 'Nantes', 'img/nantes.jpg'));
+        this.trips.add(new Trip('rio-de-janeiro', 'Rio de Janeiro', 'img/rio-de-janeiro.jpg'));
+    }
+
+    findByName(tripName) {
+
+        return new Promise((resolve, reject) => {
+
+            setTimeout(() => {
+
+                this.trips.forEach(element => {
+                    if (element.name === tripName) {
+                        resolve(element);
+                    }
+                    else {
+                        reject('Trip introuvable');
+                    }
+
+                });
+
+            });
+
+        }, 2000)
+    }
+}
+
+
+let ts = new TripService();
+console.log(TripService.trips);
+const trip$ = ts.findByName('Pais');
+
+trip$.then(trip => {
+    console.log(trip);
+})
+.catch(err => {
+    console.log(trip$);
+})
+
+class PriceService {
+
+    constructor() {
+        this.prices = new Map();
+
+        this.prices.set('paris', 100);
+        this.prices.set('rio-de-janeiro', 800); 
+    }
+
+    findPriceByTripId(tripId) {
+
+        return new Promise((resolve, reject) => {
+
+            setTimeout(() => {
+                // ici l'exécution du code est asynchrone
+
+                // TODO utiliser resolve et reject en fonction du résultat de la recherche
+
+                //this.prices.forEach
+
+
+
+            }, 2000)
+        });
+    }
+}
